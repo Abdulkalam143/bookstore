@@ -189,7 +189,7 @@ export const books = [
     price: 12.99,
     rating: 4.9,
     reviews: 12453,
-    cover: "https://images.unsplash.com/photo-1607473129014-0afb7ed09c3b?w=300&h=420&fit=crop",
+    cover: "https://images.unsplash.com/photo-1511108690759-009324a90311?w=300&h=420&fit=crop",
     description:
       "Harry Potter has no idea how famous he is. That's because he's being raised by his miserable aunt and uncle who are terrified Harry will learn that he's really a wizard, just as his parents were.",
     pages: 336,
