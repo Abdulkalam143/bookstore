@@ -8,6 +8,7 @@ import BookDetail from "./pages/BookDetail";
 import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
+import Contact from "./pages/Contact";
 import "./App.css";
 
 function ScrollToTop() {
@@ -30,6 +31,7 @@ export default function App() {
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />
                 <Route path="/auth" element={<Auth />} />
+                <Route path="/contact" element={<Contact />} />
               </Routes>
             </main>
             <footer className="footer">
@@ -54,8 +56,8 @@ export default function App() {
                   </div>
                   <div className="footer__col">
                     <h4>Support</h4>
-                    <a href="#">Contact Support</a>
-                    <a href="#">Help Center</a>
+                    <a href="/contact">Contact Support</a>
+                    <a href="/contact">Help Center</a>
                   </div>
                 </div>
               </div>
