@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import { Star, ShoppingCart, Heart } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 import { useState } from "react";
 
 export default function BookCard({ book }) {
   const { addToCart, isInCart } = useCart();
-  const [wishlist, setWishlist] = useState(false);
+  const { toggleWishlist, isInWishlist } = useWishlist();
   const [added, setAdded] = useState(false);
 
   const handleAddToCart = (e) => {
@@ -36,11 +37,11 @@ export default function BookCard({ book }) {
         />
         <div className="book-card__overlay">
           <button
-            className={`book-card__wishlist ${wishlist ? "active" : ""}`}
-            onClick={(e) => { e.preventDefault(); setWishlist(!wishlist); }}
+            className={`book-card__wishlist ${isInWishlist(book.id) ? "active" : ""}`}
+            onClick={(e) => { e.preventDefault(); toggleWishlist(book); }}
             title="Add to wishlist"
           >
-            <Heart size={18} fill={wishlist ? "currentColor" : "none"} />
+            <Heart size={18} fill={isInWishlist(book.id) ? "currentColor" : "none"} />
           </button>
         </div>
         <div className="book-card__category">{book.category}</div>

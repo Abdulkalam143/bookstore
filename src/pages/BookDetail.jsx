@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { getBookById, books } from "../data/books";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 import { useState } from "react";
 import BookCard from "../components/BookCard";
 
@@ -12,9 +13,9 @@ export default function BookDetail() {
   const { id } = useParams();
   const book = getBookById(id);
   const { addToCart, isInCart } = useCart();
+  const { toggleWishlist, isInWishlist } = useWishlist();
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
-  const [wishlist, setWishlist] = useState(false);
   const [tab, setTab] = useState("description");
 
   if (!book) {
@@ -152,11 +153,11 @@ export default function BookDetail() {
             </button>
             <div className="book-detail__icon-actions">
               <button
-                className={`icon-btn ${wishlist ? "icon-btn--active" : ""}`}
-                onClick={() => setWishlist(!wishlist)}
+                className={`icon-btn ${isInWishlist(book.id) ? "icon-btn--active" : ""}`}
+                onClick={() => toggleWishlist(book)}
                 title="Add to wishlist"
               >
-                <Heart size={20} fill={wishlist ? "currentColor" : "none"} />
+                <Heart size={20} fill={isInWishlist(book.id) ? "currentColor" : "none"} />
               </button>
               <button
                 className="icon-btn"

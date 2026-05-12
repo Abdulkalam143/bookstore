@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
+import { WishlistProvider } from "./context/WishlistContext";
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import BookListing from "./pages/BookListing";
@@ -9,6 +10,7 @@ import Cart from "./pages/Cart";
 import Checkout from "./pages/Checkout";
 import Auth from "./pages/Auth";
 import Contact from "./pages/Contact";
+import Wishlist from "./pages/Wishlist";
 import "./App.css";
 
 function ScrollToTop() {
@@ -21,7 +23,8 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <CartProvider>
-          <div className="app">
+          <WishlistProvider>
+            <div className="app">
             <Navbar />
             <main className="main-content">
               <Routes>
@@ -30,6 +33,7 @@ export default function App() {
                 <Route path="/books/:id" element={<BookDetail />} />
                 <Route path="/cart" element={<Cart />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/wishlist" element={<Wishlist />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/contact" element={<Contact />} />
               </Routes>
@@ -66,7 +70,8 @@ export default function App() {
                 <span>Made with ❤️ for book lovers</span>
               </div>
             </footer>
-          </div>
+            </div>
+          </WishlistProvider>
         </CartProvider>
       </AuthProvider>
     </BrowserRouter>

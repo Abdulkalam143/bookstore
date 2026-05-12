@@ -1,11 +1,13 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import { ShoppingCart, Search, BookOpen, User, LogOut, Menu, X } from "lucide-react";
+import { ShoppingCart, Search, BookOpen, User, LogOut, Menu, X, Heart } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { useWishlist } from "../context/WishlistContext";
 import { useAuth } from "../context/AuthContext";
 import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const { cartCount } = useCart();
+  const { wishlistCount } = useWishlist();
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -60,6 +62,14 @@ export default function Navbar() {
           </Link>
           <Link to="/books" className={`navbar__link ${location.pathname === "/books" ? "active" : ""}`}>
             Browse
+          </Link>
+
+          {/* Wishlist */}
+          <Link to="/wishlist" className="navbar__cart" id="wishlist-button" style={{ marginRight: '-0.5rem' }}>
+            <Heart size={22} />
+            {wishlistCount > 0 && (
+              <span className="navbar__cart-badge">{wishlistCount}</span>
+            )}
           </Link>
 
           {/* Cart */}
@@ -122,6 +132,9 @@ export default function Navbar() {
           </form>
           <Link to="/" className="navbar__mobile-link">Home</Link>
           <Link to="/books" className="navbar__mobile-link">Browse Books</Link>
+          <Link to="/wishlist" className="navbar__mobile-link">
+            Wishlist {wishlistCount > 0 && `(${wishlistCount})`}
+          </Link>
           <Link to="/cart" className="navbar__mobile-link">
             Cart {cartCount > 0 && `(${cartCount})`}
           </Link>
