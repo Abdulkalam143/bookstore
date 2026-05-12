@@ -1,13 +1,15 @@
 import { Link } from "react-router-dom";
-import { Star, ShoppingCart, Heart } from "lucide-react";
+import { Star, ShoppingCart, Heart, Plus, Minus } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { useWishlist } from "../context/WishlistContext";
 import { useState } from "react";
 
 export default function BookCard({ book }) {
-  const { addToCart, isInCart } = useCart();
+  const { items, addToCart, isInCart, updateQuantity } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const [added, setAdded] = useState(false);
+
+  const cartItem = items.find((i) => i.id === book.id);
 
   const handleAddToCart = (e) => {
     e.preventDefault();
@@ -57,14 +59,32 @@ export default function BookCard({ book }) {
         </div>
         <div className="book-card__footer">
           <span className="book-card__price">${book.price.toFixed(2)}</span>
-          <button
-            className={`btn btn--primary btn--sm book-card__add ${isInCart(book.id) || added ? "btn--success" : ""}`}
-            onClick={handleAddToCart}
-            id={`add-to-cart-${book.id}`}
-          >
-            <ShoppingCart size={14} />
-            {added ? "Added!" : isInCart(book.id) ? "In Cart" : "Add"}
-          </button>
+          {cartItem ? (
+            <div className="quantity-control" onClick={(e) => e.preventDefault()}>
+              <button
+                className="quantity-btn"
+                onClick={(e) => { e.preventDefault(); updateQuantity(book.id, cartItem.quantity - 1); }}
+              >
+                <Minus size={14} />
+              </button>
+              <span className="quantity-value">{cartItem.quantity}</span>
+              <button
+                className="quantity-btn"
+                onClick={(e) => { e.preventDefault(); updateQuantity(book.id, cartItem.quantity + 1); }}
+              >
+                <Plus size={14} />
+              </button>
+            </div>
+          ) : (
+            <button
+              className={`btn btn--primary btn--sm book-card__add ${added ? "btn--success" : ""}`}
+              onClick={handleAddToCart}
+              id={`add-to-cart-${book.id}`}
+            >
+              <ShoppingCart size={14} />
+              {added ? "Added!" : "Add"}
+            </button>
+          )}
         </div>
       </div>
     </Link>

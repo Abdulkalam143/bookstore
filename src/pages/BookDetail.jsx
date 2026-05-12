@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
   Star, ShoppingCart, ArrowLeft, BookOpen, Calendar,
-  Hash, Building, Check, Share2, Heart
+  Hash, Building, Check, Share2, Heart, Plus, Minus
 } from "lucide-react";
 import { getBookById, books } from "../data/books";
 import { useCart } from "../context/CartContext";
@@ -12,11 +12,13 @@ import BookCard from "../components/BookCard";
 export default function BookDetail() {
   const { id } = useParams();
   const book = getBookById(id);
-  const { addToCart, isInCart } = useCart();
+  const { items, addToCart, isInCart, updateQuantity } = useCart();
   const { toggleWishlist, isInWishlist } = useWishlist();
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
   const [tab, setTab] = useState("description");
+
+  const cartItem = items?.find((i) => i.id === book?.id);
 
   if (!book) {
     return (
@@ -86,17 +88,37 @@ export default function BookDetail() {
           </div>
           {/* Actions (mobile) */}
           <div className="book-detail__actions book-detail__actions--mobile">
-            <button
-              className={`btn btn--primary btn--full ${added || isInCart(book.id) ? "btn--success" : ""}`}
-              onClick={handleAddToCart}
-              id="detail-add-to-cart"
-            >
-              {added || isInCart(book.id) ? (
-                <><Check size={18} /> In Cart</>
-              ) : (
-                <><ShoppingCart size={18} /> Add to Cart</>
-              )}
-            </button>
+            {cartItem ? (
+              <div className="quantity-control" style={{ flex: 1, height: '42px' }}>
+                <button
+                  className="quantity-btn"
+                  style={{ flex: 1 }}
+                  onClick={() => updateQuantity(book.id, cartItem.quantity - 1)}
+                >
+                  <Minus size={16} />
+                </button>
+                <span className="quantity-value" style={{ flex: 1, textAlign: 'center' }}>{cartItem.quantity} in Cart</span>
+                <button
+                  className="quantity-btn"
+                  style={{ flex: 1 }}
+                  onClick={() => updateQuantity(book.id, cartItem.quantity + 1)}
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
+            ) : (
+              <button
+                className={`btn btn--primary btn--full ${added ? "btn--success" : ""}`}
+                onClick={handleAddToCart}
+                id="detail-add-to-cart"
+              >
+                {added ? (
+                  <><Check size={18} /> Added!</>
+                ) : (
+                  <><ShoppingCart size={18} /> Add to Cart</>
+                )}
+              </button>
+            )}
             <button
               className="btn btn--secondary btn--full"
               onClick={handleBuyNow}
@@ -137,17 +159,35 @@ export default function BookDetail() {
 
           {/* Actions (desktop) */}
           <div className="book-detail__actions book-detail__actions--desktop">
-            <button
-              className={`btn btn--primary ${added || isInCart(book.id) ? "btn--success" : ""}`}
-              onClick={handleAddToCart}
-              id="detail-add-to-cart-desktop"
-            >
-              {added || isInCart(book.id) ? (
-                <><Check size={18} /> In Cart</>
-              ) : (
-                <><ShoppingCart size={18} /> Add to Cart</>
-              )}
-            </button>
+            {cartItem ? (
+              <div className="quantity-control" style={{ height: '42px' }}>
+                <button
+                  className="quantity-btn"
+                  onClick={() => updateQuantity(book.id, cartItem.quantity - 1)}
+                >
+                  <Minus size={16} />
+                </button>
+                <span className="quantity-value" style={{ width: '60px' }}>{cartItem.quantity} in Cart</span>
+                <button
+                  className="quantity-btn"
+                  onClick={() => updateQuantity(book.id, cartItem.quantity + 1)}
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
+            ) : (
+              <button
+                className={`btn btn--primary ${added ? "btn--success" : ""}`}
+                onClick={handleAddToCart}
+                id="detail-add-to-cart-desktop"
+              >
+                {added ? (
+                  <><Check size={18} /> Added!</>
+                ) : (
+                  <><ShoppingCart size={18} /> Add to Cart</>
+                )}
+              </button>
+            )}
             <button className="btn btn--secondary" onClick={handleBuyNow} id="detail-buy-now-desktop">
               Buy Now — ${book.price.toFixed(2)}
             </button>
