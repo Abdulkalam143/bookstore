@@ -52,6 +52,11 @@ export default function App() {
                     <a href="/auth">Register</a>
                     <a href="/cart">My Cart</a>
                   </div>
+                  <div className="footer__col">
+                    <h4>Support</h4>
+                    <a href="#">Contact Support</a>
+                    <a href="#">Help Center</a>
+                  </div>
                 </div>
               </div>
               <div className="footer__bottom">
