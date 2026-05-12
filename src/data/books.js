@@ -351,6 +351,57 @@ export const books = [
     isbn: "978-0345391803",
     featured: false,
   },
+  {
+    id: 21,
+    title: "Man's Search for Meaning",
+    author: "Viktor E. Frankl",
+    category: "Self-Help",
+    price: 13.99,
+    rating: 4.9,
+    reviews: 12450,
+    cover: "https://images.unsplash.com/photo-1474366521946-c3d4b507abf2?w=300&h=420&fit=crop",
+    description:
+      "Psychiatrist Viktor Frankl's memoir has riveted generations of readers with its descriptions of life in Nazi death camps and its lessons for spiritual survival.",
+    pages: 165,
+    publisher: "Beacon Press",
+    year: 1946,
+    isbn: "978-0807014271",
+    featured: false,
+  },
+  {
+    id: 22,
+    title: "Awaken the Giant Within",
+    author: "Tony Robbins",
+    category: "Self-Help",
+    price: 15.99,
+    rating: 4.6,
+    reviews: 8230,
+    cover: "https://images.unsplash.com/photo-1499540633125-484965b60031?w=300&h=420&fit=crop",
+    description:
+      "Wake up and take control of your life! From the bestselling author of Inner Strength, Unlimited Power, and MONEY Master the Game, Anthony Robbins, the nation's leader in the science of peak performance.",
+    pages: 544,
+    publisher: "Free Press",
+    year: 1991,
+    isbn: "978-0671791544",
+    featured: true,
+  },
+  {
+    id: 23,
+    title: "You Are a Badass",
+    author: "Jen Sincero",
+    category: "Self-Help",
+    price: 14.99,
+    rating: 4.7,
+    reviews: 15302,
+    cover: "https://images.unsplash.com/photo-1518066000714-58c45f1a2c0a?w=300&h=420&fit=crop",
+    description:
+      "Bestselling author, speaker and world-traveling success coach, Jen Sincero, cuts through the din of the self-help genre with her own verbal meat cleaver in You Are a Badass: How to Stop Doubting Your Greatness and Start Living an Awesome Life.",
+    pages: 256,
+    publisher: "Running Press Adult",
+    year: 2013,
+    isbn: "978-0762447695",
+    featured: false,
+  }
 ];
 
 export const getFeaturedBooks = () => books.filter((b) => b.featured);
